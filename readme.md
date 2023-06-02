@@ -28,7 +28,7 @@
 ## Example:
 ### Example of using a library to continously display a value read from ADC (code simplified to focus on library's specific functions):
 ```c
-    include a "OLED_128x32.h"
+    #include "OLED_128x32.h"
     OLED_128x32 oled;
     float voltage = 0;
 
@@ -42,13 +42,13 @@
         // (also adds 1234567890 on second line)
         while(1)
         {
-            voltage = HAL_ADC_GetValue(hadc) * (3.3f / (float)4095); // map ADC output to volts
-            OLED_Reset_Display(&oled);
+            voltage = HAL_ADC_GetValue(&hadc) * (3.3f / (float)4095); // map ADC output to volts
+            OLED_Reset_Display(&oled); // resets a buffer send to graphic memory
             OLED_Add_Float(&oled, voltage, 4); // voltage value rounded to 4 decimal numbers
-            OLED_Add_char(&oled, 'V');
-            OLED_Next_Line(&oled);
-            OLED_Add_number(&oled, 1234567890);
-            OLED_Draw(&oled);
+            OLED_Add_char(&oled, 'V'); // add 'V' character
+            OLED_Next_Line(&oled); // go to next line
+            OLED_Add_number(&oled, 1234567890); // add number 1234567890
+            OLED_Draw(&oled); // puts a pixels from buffer on the screen
         }
     }
 ```
